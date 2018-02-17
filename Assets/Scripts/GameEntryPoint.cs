@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ExitGames.Client.Photon;
+using UnityEngine.Assertions;
 
-public class CubePlayer : Photon.PunBehaviour
+public class GameEntryPoint : Photon.PunBehaviour
 {
+
+    [SerializeField]
+    Transform playerEntry;
+
     bool isReady = false;
 
 	// Use this for initialization
@@ -20,10 +25,14 @@ public class CubePlayer : Photon.PunBehaviour
         Debug.Log("OnJoinLoby");
     }
 
+    Player player;
+
     public override void OnJoinedRoom()
     {
         isReady = true;
         Debug.Log("OnJoinedRoom");
+
+        this.player = Player.Create(this.playerEntry);
     }
 
     public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
@@ -32,6 +41,7 @@ public class CubePlayer : Photon.PunBehaviour
         PhotonNetwork.CreateRoom(null);
     }
 
+    /**
     void FixedUpdate()
     {
         if (Input.GetMouseButtonDown(0) && isReady)
@@ -42,7 +52,21 @@ public class CubePlayer : Photon.PunBehaviour
             var rndPow = Random.Range(1.0f, 5.0f);
             rigidbody.AddForce(Vector3.left * rndPow, ForceMode.Impulse);
 
-        }    
+        }
+    }
+    **/
+
+    /// <summary>
+    /// プレイヤーの退室時に呼ばれます。
+    /// </summary>
+    /// <param name='otherPlayer'>
+    /// プレイヤー情報
+    /// </param>
+    public override void OnPhotonPlayerDisconnected(PhotonPlayer player) { }
+
+    private void Reset()
+    {
+        this.playerEntry = GameObject.Find("EnemySpawnPoint").transform;
     }
 
 }
