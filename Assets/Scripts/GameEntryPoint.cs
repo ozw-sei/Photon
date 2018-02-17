@@ -40,22 +40,6 @@ public class GameEntryPoint : Photon.PunBehaviour
         base.OnPhotonRandomJoinFailed(codeAndMsg);
         PhotonNetwork.CreateRoom(null);
     }
-
-    /**
-    void FixedUpdate()
-    {
-        if (Input.GetMouseButtonDown(0) && isReady)
-        {
-            var syncObj = PhotonNetwork.Instantiate("Cube", new Vector3(9.0f, 0, 0), Quaternion.identity, 0);
-            var rigidbody = syncObj.GetComponent<Rigidbody>();
-            rigidbody.isKinematic = false;
-            var rndPow = Random.Range(1.0f, 5.0f);
-            rigidbody.AddForce(Vector3.left * rndPow, ForceMode.Impulse);
-
-        }
-    }
-    **/
-
     /// <summary>
     /// プレイヤーの退室時に呼ばれます。
     /// </summary>

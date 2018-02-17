@@ -9,6 +9,12 @@ public class Shot: MonoBehaviour
 {
     float timeout = 1;
 
+    public static Shot Create(Vector3 initialTransform)
+    {
+        var prefab = (GameObject)Resources.Load("Shot");
+        return Instantiate(prefab, initialTransform, Quaternion.identity).GetComponent<Shot>();
+    }
+
     void Start()
     {
         Observable.Timer(TimeSpan.FromSeconds(timeout))
