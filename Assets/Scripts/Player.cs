@@ -4,12 +4,9 @@ using UnityEngine;
 using UniRx;
 
 public class Player : Photon.MonoBehaviour {
-    bool isReady = true;
-
     float dist = 0.3f;
 
     Camera camera;
-
 
     public static Player Create(Transform transform)
     {
@@ -35,19 +32,19 @@ public class Player : Photon.MonoBehaviour {
         }
 
         if (Input.GetKey(KeyCode.A)){
-            this.transform.Translate(new Vector3(-1 * dist, 0, 0));
+            this.transform.Translate(Vector3.right * dist);
         }
 
         if (Input.GetKey(KeyCode.D)){
-            this.transform.Translate(new Vector3(dist, 0, 0));
+            this.transform.Translate(Vector3.left * dist);
         }
 
         if (Input.GetKey(KeyCode.S)){
-            this.transform.Translate(new Vector3(0, 0, -1 * dist));
+            this.transform.Translate(Vector3.back * dist);
         }
 
         if (Input.GetKey(KeyCode.W)){
-            this.transform.Translate(new Vector3(0, 0, dist));
+            this.transform.Translate(Vector3.forward * dist);
         }
         var newPosition = new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z - 5);
         this.camera.transform.localPosition = newPosition;
